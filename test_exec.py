@@ -1,0 +1,27 @@
+import sys
+import traceback
+
+print("Reading sender.py...")
+with open('whatsapp_bot/sender.py', 'r') as f:
+    code = f.read()
+
+print(f"File size: {len(code)} bytes")
+print("First 300 chars:")
+print(code[:300])
+print("\n" + "="*50)
+print("Trying to execute code...")
+
+try:
+    namespace = {'__name__': '__main__'}
+    exec(code, namespace)
+    print("✓ Execution successful")
+    
+    if 'WhatsAppBot' in namespace:
+        print("✓ WhatsAppBot is defined!")
+        print("WhatsAppBot:", namespace['WhatsAppBot'])
+    else:
+        print("✗ WhatsAppBot NOT defined in namespace")
+        print("Defined names:", [k for k in namespace.keys() if not k.startswith('_')])
+except Exception as e:
+    print("✗ Error during execution:")
+    traceback.print_exc()
