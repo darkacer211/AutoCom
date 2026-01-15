@@ -4,7 +4,7 @@ import imaplib
 import email
 
 # Make sure project root is in path
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+#sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from config import EMAIL_ADDRESS, EMAIL_PASSWORD, IMAP_SERVER, IMAP_PORT
 

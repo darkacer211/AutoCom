@@ -3,7 +3,7 @@ import os
 import smtplib
 from email.message import EmailMessage
 
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+#sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from config import EMAIL_ADDRESS, EMAIL_PASSWORD, SMTP_SERVER, SMTP_PORT
 
 def send_email(to_email, subject, body):

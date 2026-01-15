@@ -1,7 +1,7 @@
 import sys
 import traceback
 
-print("Python path:", sys.path[:3])
+print("Python path:", #sys.path[:3])
 
 try:
     print("1. Importing selenium...")
