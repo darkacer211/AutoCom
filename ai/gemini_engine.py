@@ -1,13 +1,15 @@
 import sys
 import os
-
-##sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from groq import Groq
-from google import genai
 import json
-from config import GROQ_API_KEY
+
+## ensure repo root is on sys.path if needed
+## sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from groq import Groq
+
+from config.config import GROQ_API_KEY
 print("USING NEW GEMINI ENGINE:", __file__)
 
+# Initialize client (will raise/print on failure; analyze_email handles runtime errors)
 client = Groq(api_key=GROQ_API_KEY)
 
 SYSTEM_PROMPT = """
@@ -50,21 +52,58 @@ Body:
 """
 
     try:
-        
-        completion = client.chat.completions.create ( 
-            
+        # Use non-streaming call for simplicity and predictable response structure
+        completion = client.chat.completions.create(
             model="openai/gpt-oss-120b",
-            contents=prompt,
+            messages=[{"role": "user", "content": prompt}],
             temperature=1,
             max_completion_tokens=8192,
             top_p=1,
             reasoning_effort="medium",
-            stream=True,
-            stop=None   
+            stream=False,
+            stop=None,
         )
 
-        raw_text = response.text.strip()
-        return json.loads(raw_text)
+        # Try several ways to extract text from the returned object
+        raw_text = ""
+        # common attribute used by some SDKs
+        if hasattr(completion, "text") and completion.text:
+            raw_text = completion.text
+        # groq SDK returns choices with message.content
+        elif hasattr(completion, "choices"):
+            try:
+                choice = completion.choices[0]
+                # message may be an object or dict
+                msg = getattr(choice, "message", None) or (choice.get("message") if isinstance(choice, dict) else None)
+                if msg is not None:
+                    raw_text = getattr(msg, "content", None) or (msg.get("content") if isinstance(msg, dict) else None) or ""
+                else:
+                    raw_text = str(choice)
+            except Exception:
+                raw_text = str(completion)
+        # some SDKs return a dict-like structure
+        elif isinstance(completion, dict):
+            # try common OpenAI-style shape
+            try:
+                raw_text = completion.get("choices", [])[0].get("message", {}).get("content", "")
+            except Exception:
+                raw_text = str(completion)
+        else:
+            # fallback to stringifying the object
+            raw_text = str(completion)
+
+        raw_text = raw_text.strip()
+        # If response is empty, raise to go to fallback
+        if not raw_text:
+            # log the full completion for debugging
+            print('Completion repr (empty text):', repr(completion))
+            raise ValueError("Empty response from model")
+
+        try:
+            return json.loads(raw_text)
+        except Exception as parse_err:
+            print('Failed to parse model output as JSON. Raw output repr: ', repr(raw_text))
+            raise parse_err
 
     except Exception as e:
         print("Gemini API error:", e)
