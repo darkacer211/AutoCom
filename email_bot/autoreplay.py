@@ -105,7 +105,7 @@ def send_safe_auto_reply(receiver, original_subject):
 
 
 def notify_user(mail, category):
-    print("\n IMPORTANT EMAIL DETECTED ")
+    print("\n🚨 IMPORTANT EMAIL DETECTED 🚨")
     print("Category:", category)
     print("From:", mail["from"])
     print("Subject:", mail["subject"])

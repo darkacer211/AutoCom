@@ -1,0 +1,6 @@
+2026/01/20-23:19:04.356 7724 Reusing MANIFEST C:\Users\athar\MScheduler\whatsapp_profile\Default\Local Storage\leveldb/MANIFEST-000001
+2026/01/20-23:19:04.361 7724 Recovering log #4
+2026/01/20-23:19:04.364 7724 Reusing old log C:\Users\athar\MScheduler\whatsapp_profile\Default\Local Storage\leveldb/000004.log 
+2026/01/20-23:20:04.374 3490 Level-0 table #8: started
+2026/01/20-23:20:04.380 3490 Level-0 table #8: 15658 bytes OK
+2026/01/20-23:20:04.382 3490 Delete type=0 #4

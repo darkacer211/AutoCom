@@ -1,0 +1,13 @@
+2026/01/20-23:19:04.905 30c0 Reusing MANIFEST C:\Users\athar\MScheduler\whatsapp_profile\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2026/01/20-23:19:04.906 30c0 Recovering log #684
+2026/01/20-23:19:04.909 30c0 Reusing old log C:\Users\athar\MScheduler\whatsapp_profile\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/000684.log 
+2026/01/20-23:19:08.485 4554 Compacting 1@1 + 2@2 files
+2026/01/20-23:19:08.508 4554 Generated table #700@1: 8784 keys, 472631 bytes
+2026/01/20-23:19:08.509 4554 Compacted 1@1 + 2@2 files => 472631 bytes
+2026/01/20-23:19:08.510 4554 compacted to: files[ 0 0 12 0 0 0 0 ]
+2026/01/20-23:32:05.481 4554 Level-0 table #702: started
+2026/01/20-23:32:05.507 4554 Level-0 table #702: 1130905 bytes OK
+2026/01/20-23:32:05.508 4554 Delete type=2 #668
+2026/01/20-23:32:05.508 4554 Delete type=2 #683
+2026/01/20-23:32:05.508 4554 Delete type=0 #684
+2026/01/20-23:32:05.508 4554 Delete type=2 #687

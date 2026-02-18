@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - MScheduler{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+    <section class="dashboard-header">
+        <h2>Dashboard</h2>
+        <p class="subtitle">System Overview & Status</p>
+    </section>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon">📊</div>
+            <div class="stat-content">
+                <h3>Active Jobs</h3>
+                <p class="stat-value" id="active-jobs">0</p>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">✅</div>
+            <div class="stat-content">
+                <h3>Completed</h3>
+                <p class="stat-value" id="completed-jobs">0</p>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">⚠️</div>
+            <div class="stat-content">
+                <h3>Failed</h3>
+                <p class="stat-value" id="failed-jobs">0</p>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">🔄</div>
+            <div class="stat-content">
+                <h3>System Status</h3>
+                <p class="stat-value status-online" id="system-status">Online</p>
+            </div>
+        </div>
+    </div>
+
+    <section class="jobs-section">
+        <h3>Recent Jobs</h3>
+        <table class="jobs-table">
+            <thead>
+                <tr>
+                    <th>Job Name</th>
+                    <th>Status</th>
+                    <th>Last Run</th>
+                    <th>Next Run</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="jobs-list">
+                <tr>
+                    <td colspan="5" class="text-center">No jobs yet</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        loadDashboardData();
+    });
+
+    async function loadDashboardData() {
+        try {
+            const response = await fetch('/api/status');
+            const data = await response.json();
+            console.log('Dashboard data loaded:', data);
+        } catch (error) {
+            console.error('Error loading dashboard:', error);
+        }
+    }
+</script>
+{% endblock %}
